@@ -1,48 +1,105 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Cat Game</title>
+<title>Virtual Cat</title>
 <style>
-body{font-family:Arial;text-align:center;background:#f4f4f4}
-#cat{font-size:120px;cursor:pointer}
+body{font-family:Arial;text-align:center;background:#f2f2f2}
+#room{width:900px;height:500px;margin:auto;border:3px solid #444;background:white;position:relative}
+#cat{font-size:80px;position:absolute;cursor:grab}
 button{padding:10px;margin:10px;font-size:18px}
 </style>
 </head>
+
 <body>
 
 <h1>Virtual Cat 🐱</h1>
 
+<div id="room">
 <div id="cat">🐱</div>
+</div>
 
 <p id="mood">Mood: Happy</p>
 
 <button onclick="feed()">Feed</button>
-<button onclick="play()">Play Toy</button>
 
 <script>
+
+let cat=document.getElementById("cat")
+let mood=document.getElementById("mood")
+
+let x=200
+let y=200
+let vx=2
+let vy=2
+let dragging=false
 let annoyance=0
 
-function update(){
-if(annoyance<3){mood.innerText="Mood: Happy 😺"}
-else if(annoyance<6){mood.innerText="Mood: Annoyed 😾"}
-else{mood.innerText="Mood: Angry 😡"}
+cat.style.left=x+"px"
+cat.style.top=y+"px"
+
+cat.onmousedown=function(){
+dragging=true
+annoyance++
+}
+
+document.onmouseup=function(){
+dragging=false
+}
+
+document.onmousemove=function(e){
+
+if(dragging){
+
+x=e.pageX-40
+y=e.pageY-40
+
+}
+
 }
 
 function feed(){
 annoyance=Math.max(0,annoyance-2)
-update()
 }
 
-function play(){
-annoyance=Math.max(0,annoyance-1)
-update()
+function physics(){
+
+x+=vx
+y+=vy
+
+if(x<0||x>850)vx*=-1
+if(y<0||y>450)vy*=-1
+
+cat.style.left=x+"px"
+cat.style.top=y+"px"
+
 }
 
-cat.onclick=function(){
-annoyance++
-update()
+function loop(){
+
+physics()
+requestAnimationFrame(loop)
+
 }
+
+loop()
+
 </script>
 
 </body>
 </html>
+What is this?
+5. Scroll down and click
+Commit new file
+Then open your game
+https://lisafasanofasano-spec.github.io/cat-/
+
+Wait about 30 seconds and refresh.
+
+✅ If you'd like, I can also help you turn this into a much more realistic cat simulator where:
+
+🐈 the cat walks around
+🧶 chases toys
+😾 reacts when you drag it
+🏀 bounces when released
+🐾 adopts multiple cats
+🎵 meows and purrs
