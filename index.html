@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cat Game</title>
+<style>
+body{font-family:Arial;text-align:center;background:#f4f4f4}
+#cat{font-size:120px;cursor:pointer}
+button{padding:10px;margin:10px;font-size:18px}
+</style>
+</head>
+<body>
+
+<h1>Virtual Cat 🐱</h1>
+
+<div id="cat">🐱</div>
+
+<p id="mood">Mood: Happy</p>
+
+<button onclick="feed()">Feed</button>
+<button onclick="play()">Play Toy</button>
+
+<script>
+let annoyance=0
+
+function update(){
+if(annoyance<3){mood.innerText="Mood: Happy 😺"}
+else if(annoyance<6){mood.innerText="Mood: Annoyed 😾"}
+else{mood.innerText="Mood: Angry 😡"}
+}
+
+function feed(){
+annoyance=Math.max(0,annoyance-2)
+update()
+}
+
+function play(){
+annoyance=Math.max(0,annoyance-1)
+update()
+}
+
+cat.onclick=function(){
+annoyance++
+update()
+}
+</script>
+
+</body>
+</html>
